@@ -32,15 +32,18 @@ keywords_path: The location of the keywords.txt file relative to the location of
 num_of_keywords: The number of keywords to be included in the search term.
 
 # Using the default keywords file
-The program comes with a default keywords.txt file containing a list of keywords. If you want to use this file, leave the keywords_path variable in the config.ini file as is.
+The program comes with a default 'keywords.txt' file containing a list of keywords. If you want to use this file, leave the 'keywords_path' variable in the 'config.ini' file as is.
 
 Although if you do have problems with Python not finding the path, just update the file to be the full path to wherever the file is kept.
 
-`keywords_path = "/path/to/this/directory/keywords.txt"`
+`keywords_path = "keywords.txt"`
 
 # Using a custom keywords file
-If you want to use your own custom keywords file, create a new .txt file and add your list of keywords, each on a new line. Then, open the config.ini file and change the keywords_path variable to point to your new file.
+If you want to use your own custom keywords file, create a new '.txt' file and add your list of keywords each on a new line, and save it into the 'keyword_files' folder. Then, open the 'config.ini' file and change the 'keywords_path' variable to the name of the '.txt' file you created.
 
+For example if I created a new text file named 'new_keywords.txt', filled with custom keywords, I would then save that file into the 'keyword_files' directory and open up the 'config.ini' and set the 'keywords_path' to `keywords_path = "new_keywords"`.
+
+Please ensure your custom keyword file is in the 'keyword_files' directory or it will not be able to find your file.
 
 # License
 This script is licensed under the MIT License.
