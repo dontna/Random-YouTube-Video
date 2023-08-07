@@ -1,5 +1,5 @@
 import random
-import update_keywords
+import scripts.update_keywords
 import os
 import configparser
 import sys
@@ -17,11 +17,11 @@ def import_keywords_from_file(filename: str):
     """
     keywords = []
 
-    if not os.path.exists(f"{os.path.dirname(os.path.abspath(__file__))}/keywords.txt"):
+    if not os.path.exists(f"{os.path.dirname(os.path.abspath(__file__))}/keyword_files/keywords.txt"):
         print("No keywords file found, creating it now...")
         update_keywords.update_keywords()
 
-    with open(f"{os.path.dirname(os.path.abspath(__file__))}/{filename}", "r") as f:
+    with open(f"{os.path.dirname(os.path.abspath(__file__))}/keyword_files/{filename}", "r") as f:
         for keyword in f.readlines():
             keywords.append(keyword.strip().lower())
 
@@ -39,7 +39,7 @@ def create_random_search_term(keywords: list, num_of_keywords=2):
     """
     search_term = []
 
-    for x in range(num_of_keywords):
+    for x in range(random.randint(1, num_of_keywords)):
         random_keyword = random.choice(keywords)
 
         if random_keyword.__contains__(' '):
@@ -81,19 +81,20 @@ def get_video_links_for_term(search_term: str, always_newest=False):
     else:
         upload_date_suffix = upload_date_suffix_dict[1]
 
+    match upload_date_int:
+        case 0:
+            print("Upload date: Not Specified")
+        case 1:
+            print("Uploade date: Last Hour")
+        case 2:
+            print("Upload date: Today")
+        case 3:
+            print("Upload date: This week")
+        case 4:
+            print("Upload date: This month")
+        case 5:
+            print("Upload date: This year")
 
-    if upload_date_int == 0:
-        print("Upload date: Not Specified")
-    elif upload_date_int == 1:
-        print("Uploade date: Last Hour")
-    elif upload_date_int == 2:
-        print("Upload date: Today")
-    elif upload_date_int == 3:
-        print("Upload date: This week")
-    elif upload_date_int == 4:
-        print("Upload date: This month")
-    elif upload_date_int == 5:
-        print("Upload date: This year")
 
     with HTMLSession() as s:
         r = s.get(f'https://www.youtube.com/results?search_query={search_term}{upload_date_suffix}')
